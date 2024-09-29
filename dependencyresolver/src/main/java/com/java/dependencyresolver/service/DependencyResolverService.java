@@ -1,56 +1,61 @@
 package com.java.dependencyresolver.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
-
+import com.java.feed.entity.FeedConfig;
+import com.java.feed.entity.FeedGroup;
+import com.java.feed.entity.Notification;
+import com.java.feed.service.FeedConfigService;
+import com.java.feed.service.FeedGroupService;
+import com.java.feed.service.NotificationService;
+import org.springframework.stereotype.Service;
+import java.time.LocalDate;
+import java.util.*;
+@Service
 public class DependencyResolverService {
     private final FeedConfigService feedConfigService;
+    private final NotificationService notificationService;
     private final FeedGroupService feedGroupService;
-    private final CacheManager cacheManager;
 
-    @Autowired
-    public DependencyResolverService(FeedConfigService feedConfigService, FeedGroupService feedGroupService, CacheManager cacheManager) {
+    public DependencyResolverService(FeedConfigService feedConfigService, NotificationService notificationService, FeedGroupService feedGroupService) {
         this.feedConfigService = feedConfigService;
+        this.notificationService = notificationService;
         this.feedGroupService = feedGroupService;
-        this.cacheManager = cacheManager;
     }
 
-    public void processNotification(Notification notification) {
-        Long feedId = notification.getFeed().getFeedId();
-        LocalDate receivedDate = notification.getReceivedDate();
+    public List<FeedGroup> resolveFeedGroups(LocalDate receivedDate) {
+        List<Notification> notification=notificationService.getNotificationByReceivedDate(receivedDate);
+        List<FeedConfig> feedConfigs=feedConfigService.findAll();
+        List<FeedGroup> feedGroups=feedGroupService.getAllGroups();
 
-        // Find all groups where this feed is part of (using FeedConfigService)
-        List<Long> groupIds = feedConfigService.getGroupIdsByFeedId(feedId);
+        List<Long> feedIdInNotification=notification.stream()
+                .map(n -> n.getFeed().getFeedId())
+                .toList();
+        System.out.println("Feed IDs in notification: " + feedIdInNotification);
+        Map<Long, Set<Long>> groupIdToFeedIds = new HashMap<>();
+        for (FeedConfig feedConfig : feedConfigs) {
+            Long groupId = feedConfig.getFeedGroup().getGroupId();
+            Long feedId = feedConfig.getFeed().getFeedId();
+            groupIdToFeedIds.computeIfAbsent(groupId, k -> new HashSet<>()).add(feedId);
+        }
 
-        for (Long groupId : groupIds) {
-            // Retrieve the current feed set from cache for this group and date
-            Set<Long> receivedFeeds = cacheManager.getCache("groupCache").get(groupId + "_" + receivedDate, Set.class);
+        groupIdToFeedIds.forEach((groupId, feedIds) ->
+            System.out.printf("Group ID: %d, Feed IDs: %s%n", groupId, feedIds));
 
-            if (receivedFeeds == null) {
-                receivedFeeds = new HashSet<>();
-            }
+        List<FeedGroup> resolvedGroups = new ArrayList<>();
+        for (Map.Entry<Long, Set<Long>> entry : groupIdToFeedIds.entrySet()) {
+            Long groupId = entry.getKey();
+            Set<Long> feedIds = entry.getValue();
+            if (feedIdInNotification.containsAll(feedIds)) {
+                Optional<FeedGroup> group = feedGroups.stream()
+                        .filter(g -> g.getGroupId().equals(groupId))
+                        .findFirst();
 
-            // Add the current feed to the set of received feeds
-            receivedFeeds.add(feedId);
-
-            // Store the updated set back in the cache
-            cacheManager.getCache("groupCache").put(groupId + "_" + receivedDate, receivedFeeds);
-
-            // Check if all feeds in this group have been received (using FeedGroupService)
-            List<Long> requiredFeeds = feedConfigService.getFeedIdsByGroupId(groupId);
-
-            if (receivedFeeds.containsAll(requiredFeeds)) {
-                // All feeds for this group have been received, resolve the group
-                resolveGroup(groupId);
-                // Invalidate the cache entry for this group and date
-                cacheManager.getCache("groupCache").evict(groupId + "_" + receivedDate);
+                group.ifPresent(resolvedGroups::add);
+                System.out.printf("Group ID %d is resolved with Feed IDs: %s%n", groupId, feedIds);
             }
         }
+
+        return resolvedGroups;
     }
 
-    private void resolveGroup(Long groupId) {
-        // Logic to send the resolved message for the group
-        System.out.println("Resolved group: " + groupId);
-        // Further processing or JMS messaging logic here
-    }
+
 }

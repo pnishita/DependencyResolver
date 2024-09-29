@@ -1,6 +1,4 @@
 
-n
->feedops/src/main/java/com/java/feedops/FeedopsApplication.java,4\b\4bcc64436aecca496dbcd6b42b6612d77427ded0
 A
 publisher/pom.xml,b\8\b8eb34362c8e159228f59e0b4857c9ad2b59eab7
 J
@@ -13,8 +11,6 @@ Qpublisher/src/main/java/com/java/publisher/service/NotificationSenderService.ja
 Kpublisher/src/main/java/com/java/publisher/controller/SenderController.java,6\9\696bbd55fbd89a746c5562db78a71bc57c11374a
 t
 Dpublisher/src/main/java/com/java/publisher/PublisherApplication.java,1\e\1e186781653d8e67402c9a801aeb06fdf48837ab
-?
-feedops/pom.xml,0\d\0d578277dd66c28b0f3aa201453e086e365d778d
 “
 cdependencyresolver/src/main/java/com/java/dependencyresolver/service/DependencyResolverService.java,b\7\b777faf83d18cdd5189414e4dc99729972595f49
 ‡
@@ -49,9 +45,11 @@ Rdependencyresolver/src/main/java/com/java/dependencyresolver/config/JMSConfig.j
 Udependencyresolver/src/main/java/com/java/dependencyresolver/config/JaksonConfig.java,8\5\8541fdab28130cf655954df38f4b0369a38aa7ed
 
 Odependencyresolver/src/main/java/com/java/feed/service/NotificationService.java,8\3\83c29b585986fe129b35d898b54ba809942f4484
-u
-Edependencyresolver/src/main/java/com/java/feed/ModelMapperConfig.java,e\e\ee99a3b06c2ad8420cee9cfe6763ba8d7432b961
 |
 Ldependencyresolver/src/main/java/com/java/feed/config/ModelMapperConfig.java,5\e\5e9129cc9bfd7831b81fe83f5c2b347f5c853dd3
 „
 Tdependencyresolver/src/main/java/com/java/dependencyresolver/config/CacheConfig.java,a\7\a7380549362fb0884deb039304d9a57abb59fb40
+}
+Mdependencyresolver/src/main/java/com/java/feed/service/FeedConfigService.java,7\4\743b3a386c5de501a7ba1c5b90bd7b3fffe637cc
+|
+Ldependencyresolver/src/main/java/com/java/feed/service/FeedGroupService.java,7\d\7d34993bf72d59b735fb0b8c60808d109f1aa48b

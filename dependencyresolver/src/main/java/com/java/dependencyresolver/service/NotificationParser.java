@@ -5,7 +5,6 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.java.dependencyresolver.model.NotificationDTO;
 
 public class NotificationParser {
-
     private final ObjectMapper objectMapper;
 
     public NotificationParser() {
@@ -16,7 +15,7 @@ public class NotificationParser {
     public NotificationDTO parseNotification(String notificationString) {
         try {
             String jsonString = convertToJsonString(notificationString);
-            System.out.println("Converted JSON String: " + jsonString);
+           // System.out.println("Converted JSON String: " + jsonString);
             return objectMapper.readValue(jsonString, NotificationDTO.class);
         } catch (Exception e) {
             e.printStackTrace();
@@ -36,7 +35,6 @@ public class NotificationParser {
         }
         jsonBuilder.setLength(jsonBuilder.length() - 1);
         jsonBuilder.append("}");
-
         return jsonBuilder.toString();
     }
 }
