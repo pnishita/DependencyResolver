@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/DependencyResolverProject.iml" filepath="$PROJECT_DIR$/.idea/DependencyResolverProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dependencyresolver/dependencyresolver.iml" filepath="$PROJECT_DIR$/dependencyresolver/dependencyresolver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mdm/mdm.iml" filepath="$PROJECT_DIR$/mdm/mdm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/publisher/publisher.iml" filepath="$PROJECT_DIR$/publisher/publisher.iml" />
+    </modules>
+  </component>
+</project>
