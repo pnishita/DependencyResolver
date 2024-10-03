@@ -21,6 +21,9 @@ public class Feed {
     private String name;
 
     @OneToMany(mappedBy = "feed", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
     private List<Notification> notifications;
+
+
 
 }

@@ -10,5 +10,6 @@ import java.time.LocalDate;
 public class NotificationDTO {
     private String message;
     private String feedName;
-    private LocalDate date;
+    private LocalDate eventDate;
+    private LocalDate cob;
 }

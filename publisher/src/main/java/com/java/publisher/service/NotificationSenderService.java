@@ -17,7 +17,7 @@ public class NotificationSenderService {
     }
 
     public void publishNotification(Notification notification) {
-        notification.setDate(LocalDate.now());
+        notification.setEventDate(LocalDate.now());
         System.out.println(notification);
         jmsTemplate.convertAndSend("Notifications-Queue", notification.toString());
     }

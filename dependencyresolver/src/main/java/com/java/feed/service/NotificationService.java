@@ -8,11 +8,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.time.LocalDate;
 import java.util.List;
 
+
 @Service
 public class NotificationService {
+
     private final FeedService feedService;
     private final ModelMapper modelMapper;
     private final NotificationRepo notificationRepo;
@@ -26,21 +29,20 @@ public class NotificationService {
 
     public Notification saveNotification(NotificationDTO notificationDTO) {
         modelMapper.typeMap(NotificationDTO.class, Notification.class)
-                .addMappings(mapper -> mapper.map(NotificationDTO::getDate, Notification::setReceivedDate));
+                .addMappings(mapper -> mapper.map(NotificationDTO::getCob, Notification::setCob));
         Notification notification = modelMapper.map(notificationDTO, Notification.class);
         String feedName = notificationDTO.getFeedName();
         Feed existingFeed = feedService.findFeedByName(feedName);
-        if (existingFeed == null) {
-            feedService.saveFeed(feedService.findFeedByName(feedName));
-        }
         notification.setFeed(existingFeed);
         return notificationRepo.save(notification);
     }
-    public List<Notification> getNotificationByReceivedDate(LocalDate receivedDate) {
-        return notificationRepo.findByReceivedDate(receivedDate);
+
+
+
+    public List<Notification> findByCob(LocalDate cob) {
+     return  notificationRepo.findByCob(cob);
     }
 
-    public List<Notification> findByReceivedDate(LocalDate receivedDate) {
-        return notificationRepo.findByReceivedDate(receivedDate);
-    }
+
+
 }
