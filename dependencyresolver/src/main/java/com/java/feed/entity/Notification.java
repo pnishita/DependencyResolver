@@ -26,7 +26,4 @@ public class Notification {
 
         @Column(updatable = false, insertable = false)
         private LocalDateTime createdDate;
-
-
-
 }

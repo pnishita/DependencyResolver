@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
-
 @Service
 public class FeedGroupService {
     private FeedGroupRepo feedGroupRepo;
@@ -20,10 +18,8 @@ public class FeedGroupService {
     public Optional<FeedGroup> findGroupByGroupId(Long groupId) {
         return feedGroupRepo.findById(groupId);
     }
-
     @Cacheable("feedGroups")
     public List<FeedGroup> getAllGroups() {
         return feedGroupRepo.findAll();
     }
-
 }

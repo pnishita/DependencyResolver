@@ -53,17 +53,5 @@ Mdependencyresolver/src/main/java/com/java/feed/service/FeedConfigService.java,
 Ldependencyresolver/src/main/java/com/java/feed/service/FeedGroupService.java,7\d\7d34993bf72d59b735fb0b8c60808d109f1aa48b
 ˜
 hdependencyresolver/src/main/java/com/java/dependencyresolver/exception/NotificationParsingException.java,5\f\5f346d19f3681e99bc09a1f8a23738781bd5fbd4
-x
-Hdependencyresolver/src/main/java/com/java/dependencyresolver/Entity.java,2\9\29ca937f4d5044e9a112f8219c0c3338c2af3aa2
-‹
-[dependencyresolver/src/main/java/com/java/dependencyresolver/entity/LatestNotification.java,3\a\3ab0e7862e9d424b0239c74d1696cc6f5109c51f
-™
-idependencyresolver/src/main/java/com/java/dependencyresolver/repository/LatestNotificationRepository.java,1\0\109ba2210048c920c52183feb9f9627e16f6810a
-“
-cdependencyresolver/src/main/java/com/java/dependencyresolver/service/LatestNotificationService.java,e\b\eb7d2288276851780bbab5d3f3de9c22900ec343
-…
-Udependencyresolver/src/main/java/com/java/feed/repo/LatestNotificationRepository.java,d\9\d91030bab999e5ba07491308ac049a91401b5847
-}
-Mdependencyresolver/src/main/java/com/java/feed/entity/LatestNotification.java,9\8\98248415c6f02c048dbf5a2a5936916d43dae269
-…
-Udependencyresolver/src/main/java/com/java/feed/service/LatestNotificationService.java,8\7\87d3e30c29d8638ff88b8c3d7e93a85b9c59ad32
+9
+	query.sql,9\a\9ada9e6b73e941935b18d57f40b63f75a614dec8
